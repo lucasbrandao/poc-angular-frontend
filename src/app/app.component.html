@@ -1,0 +1,70 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h2>Cadastro de Cliente!</h2>
+</div>
+<form [formGroup]="formGroup" (submit)="save()">
+  <div class="form-group">
+    <label>Nome:</label>
+    <input id="name" name="name" class="form-control" formControlName="Name" required type="text" [(ngModel)]="customer.name">
+  </div>
+
+  <div class="form-group">
+    <label>Limite de Credito:</label>
+    <input id="limitCredit" name="limitCredit" formControlName="LimitCredit" class="form-control" required type="number"
+      [(ngModel)]="customer.limitCredit">
+  </div>
+
+  <div class="form-group">
+    <label>Risco:</label>
+    <select id="risc" name="risc" class="form-control" formControlName="Risc" required [(ngModel)]="customer.risc"
+      required>
+      <option *ngFor="let option of riscOptions" [value]="option.value" [innerText]="option.label"></option>
+    </select>
+  </div>
+
+  <div *ngIf="isnull(id)" class="form-group">
+    <button type="submit" id="btn-cadastrar" class="btn btn-primary">
+      Cadastrar Cliente
+    </button>
+  </div>
+
+  <div *ngIf="!isnull(id)" class="form-group">
+    <button type="submit" id="btn-cadastrar" class="btn btn-primary">
+      Editar Cliente
+    </button>
+  </div>
+
+  <div class="form-group">
+    <button type="button" id="btn-cadastrar" class="btn btn-primary" (click)="clear();">
+      Limpar
+    </button>
+  </div>
+</form>
+<div class="form-group">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>ID Cliente</th>
+        <th>Nome</th>
+        <th>Limite de Crédito</th>
+        <th>Risco</th>
+        <th>Taxa</th>
+        <th style="width: 40px !important"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <td [innerText]="c.id"></td>
+        <td [innerText]="c.name"></td>
+        <td [innerText]="c.limitCredit"></td>
+        <td [innerText]="c.risc"></td>
+        <td [innerText]="c.rate"></td>
+        <td>
+          <button class="ui button" (click)="get(c.id)" title="Editar Cliente">
+            <i class="edit outline icon"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
